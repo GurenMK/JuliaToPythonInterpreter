@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+""" generated source for module TokenType """
+class TokenType:
+    """ generated source for enum TokenType """
+    ID_TOK = u'ID_TOK'
+    ADD_TOK = u'ADD_TOK'
+    MUL_TOK = u'MUL_TOK'
+    ASSIGN_TOK = u'ASSIGN_TOK'
+    CONST_TOK = u'CONST_TOK'
+    EOS_TOK = u'EOS_TOK'
+    SUB_TOK = u'SUB_TOK'
+    DIV_TOK = u'DIV_TOK'
+    REV_DIV_TOK = u'REV_DIV_TOK'
+    EXP_TOK = u'EXP_TOK'
+    MOD_TOK = u'MOD_TOK'
+    LE_TOK = u'LE_TOK'
+    LT_TOK = u'LT_TOK'
+    GE_TOK = u'GE_TOK'
+    GT_TOK = u'GT_TOK'
+    EQ_TOK = u'EQ_TOK'
+    NE_TOK = u'NE_TOK'
+    LEFT_PAREN_TOK = u'LEFT_PAREN_TOK'
+    RIGHT_PAREN_TOK = u'RIGHT_PAREN_TOK'
+    IF_TOK = u'IF_TOK'
+    ELSE_TOK = u'ELSE_TOK'
+    FOR_TOK = u'FOR_TOK'
+    WHILE_TOK = u'WHILE_TOK'
+    FUNCTION_TOK = u'FUNCTION_TOK'
+    END_TOK = u'END_TOK'
+    PRINT_TOK = u'PRINT_TOK'
+    COL_TOK = u'COL_TOK'
+
