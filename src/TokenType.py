@@ -1,32 +1,30 @@
-#!/usr/bin/env python
-""" generated source for module TokenType """
-class TokenType:
-    """ generated source for enum TokenType """
-    ID_TOK = u'ID_TOK'
-    ADD_TOK = u'ADD_TOK'
-    MUL_TOK = u'MUL_TOK'
-    ASSIGN_TOK = u'ASSIGN_TOK'
-    CONST_TOK = u'CONST_TOK'
-    EOS_TOK = u'EOS_TOK'
-    SUB_TOK = u'SUB_TOK'
-    DIV_TOK = u'DIV_TOK'
-    REV_DIV_TOK = u'REV_DIV_TOK'
-    EXP_TOK = u'EXP_TOK'
-    MOD_TOK = u'MOD_TOK'
-    LE_TOK = u'LE_TOK'
-    LT_TOK = u'LT_TOK'
-    GE_TOK = u'GE_TOK'
-    GT_TOK = u'GT_TOK'
-    EQ_TOK = u'EQ_TOK'
-    NE_TOK = u'NE_TOK'
-    LEFT_PAREN_TOK = u'LEFT_PAREN_TOK'
-    RIGHT_PAREN_TOK = u'RIGHT_PAREN_TOK'
-    IF_TOK = u'IF_TOK'
-    ELSE_TOK = u'ELSE_TOK'
-    FOR_TOK = u'FOR_TOK'
-    WHILE_TOK = u'WHILE_TOK'
-    FUNCTION_TOK = u'FUNCTION_TOK'
-    END_TOK = u'END_TOK'
-    PRINT_TOK = u'PRINT_TOK'
-    COL_TOK = u'COL_TOK'
 
+
+class TokenType:
+    ID_TOK = 1
+    ADD_TOK = 2
+    MUL_TOK = 3
+    ASSIGN_TOK = 4
+    CONST_TOK = 5
+    EOS_TOK = 6
+    SUB_TOK = 7
+    DIV_TOK = 8
+    REV_DIV_TOK = 9
+    EXP_TOK = 10
+    MOD_TOK = 11
+    LE_TOK = 12
+    LT_TOK = 13
+    GE_TOK = 14
+    GT_TOK = 15
+    EQ_TOK = 16
+    NE_TOK = 17
+    LEFT_PAREN_TOK = 18
+    RIGHT_PAREN_TOK = 19
+    IF_TOK = 20
+    ELSE_TOK = 21
+    FOR_TOK = 22
+    WHILE_TOK = 23
+    FUNCTION_TOK = 24
+    END_TOK = 25
+    PRINT_TOK = 26
+    COL_TOK = 27

@@ -1,155 +1,143 @@
-#!/usr/bin/env python
-""" generated source for module LexicalAnalyzer """
-import java.io.File
+from TokenType import TokenType
+from LexicalException import LexicalException
+from Token import Token
 
-import java.io.FileNotFoundException
 
-import java.util.ArrayList
+class LexicalAnalyzer:
 
-import java.util.List
+    def __init__(self, file_name):
+        assert file_name is not None
+        self.tokens = []
+        with open(file_name) as file:
+            lines = file.readlines()
+            lines = [line.strip() for line in lines]
+        for line_number, line in enumerate(lines):
+            self.processLine(line, line_number)
+        self.tokens.append(Token(line_number, 1, "EOS", TokenType.EOS_TOK))
 
-import java.util.Scanner
-
-class LexicalAnalyzer(object):
-    """ generated source for class LexicalAnalyzer """
-    tokens = List()
-
-    def __init__(self, fileName):
-        """ generated source for method __init__ """
-        assert (fileName != None)
-        self.tokens = ArrayList()
-        sourceCode = Scanner(File(fileName))
-        lineNumber = 0
-        while sourceCode.hasNext():
-            processLine(line, lineNumber)
-            lineNumber += 1
-        self.tokens.add(Token(lineNumber, 1, "EOS", TokenType.EOS_TOK))
-        sourceCode.close()
-
-    def processLine(self, line, lineNumber):
-        """ generated source for method processLine """
-        assert (line != None and lineNumber >= 1)
+    def processLine(self, line, line_number):
+        assert line is not None and line_number >= 0
         index = 0
-        index = skipWhiteSpace(line, index)
+        index = LexicalAnalyzer.skip_white_space(line, index)
         while index < len(line):
-            self.tokens.add(Token(lineNumber + 1, index + 1, lexeme, tokType))
+            lexeme = LexicalAnalyzer.get_lexeme(line, line_number, index)
+            tok_type = LexicalAnalyzer.get_token_type(lexeme, line_number, index)
+            self.tokens.append(Token(line_number + 1, index + 1, lexeme, tok_type))
             index += len(lexeme)
-            index = skipWhiteSpace(line, index)
+            index = LexicalAnalyzer.skip_white_space(line, index)
 
-    def getTokenType(self, lexeme, lineNumber, columnNumber):
-        """ generated source for method getTokenType """
-        assert (lexeme != None and lineNumber >= 1 and columnNumber >= 1)
-        tokType = None
-        if Character.isLetter(lexeme.charAt(0)):
-            if 1 == len(lexeme):
-                if isValidIdentifier(lexeme.charAt(0)):
-                    tokType = TokenType.ID_TOK
+    def get_token_type(lexeme, line_number, column_number):
+        assert lexeme is not None and line_number >= 0 and column_number >= 0
+        if lexeme[0].isalpha():
+            if len(lexeme) == 1:
+                if LexicalAnalyzer.is_valid_identifier(lexeme[0]):
+                    tok_type = TokenType.ID_TOK
                 else:
-                    raise LexicalException("invalid lexeme at row number " + (lineNumber + 1) + " and column " + (columnNumber + 1))
+                    raise LexicalException(
+                        "Invalid lexeme at row number {} and column {}".format(line_number + 1, column_number + 1))
             elif lexeme == "if":
-                tokType = TokenType.IF_TOK
+                tok_type = TokenType.IF_TOK
             elif lexeme == "function":
-                tokType = TokenType.FUNCTION_TOK
+                tok_type = TokenType.FUNCTION_TOK
             elif lexeme == "end":
-                tokType = TokenType.END_TOK
+                tok_type = TokenType.END_TOK
             elif lexeme == "else":
-                tokType = TokenType.ELSE_TOK
+                tok_type = TokenType.ELSE_TOK
             elif lexeme == "for":
-                tokType = TokenType.FOR_TOK
+                tok_type = TokenType.FOR_TOK
             elif lexeme == "while":
-                tokType = TokenType.WHILE_TOK
+                tok_type = TokenType.WHILE_TOK
             elif lexeme == "print":
-                tokType = TokenType.PRINT_TOK
+                tok_type = TokenType.PRINT_TOK
             else:
-                raise LexicalException("invalid lexeme at row number " + (lineNumber + 1) + " and column " + (columnNumber + 1))
-        elif Character.isDigit(lexeme.charAt(0)):
-            if allDigits(lexeme):
-                tokType = TokenType.CONST_TOK
+                raise LexicalException(
+                    "Invalid lexeme at row number {} and column {}".format(line_number + 1, column_number + 1))
+        elif lexeme[0].isdigit():
+            if LexicalAnalyzer.all_digits(lexeme):
+                tok_type = TokenType.CONST_TOK
             else:
-                raise LexicalException("invalid lexeme at row number " + (lineNumber + 1) + " and column " + (columnNumber + 1))
+                raise LexicalException(
+                    "Invalid lexeme at row number {} and column {}".format(line_number + 1, column_number + 1))
         elif lexeme == "+":
-            tokType = TokenType.ADD_TOK
+            tok_type = TokenType.ADD_TOK
         elif lexeme == "-":
-            tokType = TokenType.SUB_TOK
+            tok_type = TokenType.SUB_TOK
         elif lexeme == "*":
-            tokType = TokenType.MUL_TOK
+            tok_type = TokenType.MUL_TOK
         elif lexeme == "/":
-            tokType = TokenType.DIV_TOK
+            tok_type = TokenType.DIV_TOK
         elif lexeme == "\\":
-            tokType = TokenType.REV_DIV_TOK
+            tok_type = TokenType.REV_DIV_TOK
         elif lexeme == "^":
-            tokType = TokenType.EXP_TOK
+            tok_type = TokenType.EXP_TOK
         elif lexeme == "%":
-            tokType = TokenType.MOD_TOK
+            tok_type = TokenType.MOD_TOK
         elif lexeme == "=":
-            tokType = TokenType.ASSIGN_TOK
+            tok_type = TokenType.ASSIGN_TOK
         elif lexeme == "(":
-            tokType = TokenType.LEFT_PAREN_TOK
-        elif lexeme == ""):
-            tokType = TokenType.RIGHT_PAREN_TOK
+            tok_type = TokenType.LEFT_PAREN_TOK
+        elif lexeme == ")":
+            tok_type = TokenType.RIGHT_PAREN_TOK
         elif lexeme == ">=":
-            tokType = TokenType.GE_TOK
+            tok_type = TokenType.GE_TOK
         elif lexeme == ">":
-            tokType = TokenType.GT_TOK
+            tok_type = TokenType.GT_TOK
         elif lexeme == "<=":
-            tokType = TokenType.LE_TOK
+            tok_type = TokenType.LE_TOK
         elif lexeme == "<":
-            tokType = TokenType.LT_TOK
+            tok_type = TokenType.LT_TOK
         elif lexeme == "==":
-            tokType = TokenType.EQ_TOK
+            tok_type = TokenType.EQ_TOK
         elif lexeme == "!=":
-            tokType = TokenType.NE_TOK
+            tok_type = TokenType.NE_TOK
         elif lexeme == ":":
-            tokType = TokenType.COL_TOK
+            tok_type = TokenType.COL_TOK
         else:
-            raise LexicalException("invalid lexeme at row number " + (lineNumber + 1) + " and column " + (columnNumber + 1))
-        return tokType
+            raise LexicalException(
+                "Invalid lexeme at row number {} and column {}".format(line_number + 1, column_number + 1))
+        return tok_type
 
-    def allDigits(self, s):
-        """ generated source for method allDigits """
-        assert (s != None)
+    def all_digits(self):
+        assert self is not None
         i = 0
-        while i < len(s) and Character.isDigit(s.charAt(i)):
-        return i == len(s)
-
-    def getLexeme(self, line, lineNumber, index):
-        """ generated source for method getLexeme """
-        assert (line != None and lineNumber >= 1 and index >= 0)
-        i = index
-        while i < len(line) and not Character.isWhitespace(line.charAt(i)):
-        return line.substring(index, i)
-
-    def skipWhiteSpace(self, line, index):
-        """ generated source for method skipWhiteSpace """
-        assert (line != None and index >= 0)
-        while index < len(line) and Character.isWhitespace(line.charAt(index)):
-        return index
-
-    def getNextToken(self):
-        """ generated source for method getNextToken """
-        if self.tokens.isEmpty():
-            raise LexicalException("no more tokens")
-        return self.tokens.remove(0)
-
-    def getLookaheadToken(self):
-        """ generated source for method getLookaheadToken """
-        if self.tokens.isEmpty():
-            raise LexicalException("no more tokens")
-        return self.tokens.get(0)
-
-    @classmethod
-    def isValidIdentifier(cls, ch):
-        """ generated source for method isValidIdentifier """
-        # return ch == 'A' || ch == 'B' || ch == 'C' || ch == 'D';
-        return Character.isLetter(ch)
-
-    # print all tokens and lexemes from a julia file that was passed to the lexical analyzer
-    # the lexical analyzer needs to be initialized in main class (Interpreter.java)
-    def printLex(self):
-        """ generated source for method printLex """
-        # print all tokens and lexemes
-        i = 0
-        while i < len(self.tokens):
-            print "The next token is: " + tokType + " **** Next lexeme is: " + lexeme
+        while i < len(self) and self[i].isdigit():
             i += 1
+        return i == len(self)
 
+    def get_lexeme(line, line_number, index):
+        assert line is not None and line_number >= 0 and index >= 0
+        i = index
+        while i < len(line):
+            if line[i].isspace():
+                break
+            i += 1
+        return line[index:i]
+
+    def skip_white_space(line, index):
+        assert line is not None and index >= 0
+        i = index
+        while i < len(line):
+            if not line[i].isspace():
+                break
+            i += 1
+        return i
+
+    def get_next_token(self):
+        if not len(self.tokens):
+            raise LexicalException("No more tokens")
+        return self.tokens.pop(0)
+
+    def get_lookahead_token(self):
+        if not len(self.tokens):
+            raise LexicalException("No more tokens")
+        return self.tokens[0]
+
+    def is_valid_identifier(self):
+        return self.isalpha()
+
+    # print all tokens and lexemes
+    def print_lex(self):
+        for token in self.tokens:
+            tok_type = token.get_tok_type()
+            lexeme = token.get_lexeme()
+            print("The next token is: " + str(tok_type) + " **** Next lexeme is: " + str(lexeme))

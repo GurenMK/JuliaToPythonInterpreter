@@ -1,40 +1,33 @@
-#!/usr/bin/env python
-""" generated source for module ForStatement """
-class ForStatement(Statement):
-    """ generated source for class ForStatement """
-    var = Id()
-    it = Iter()
+from Memory import Memory
 
-    # arrayList of size 2, index 0-start loop value, index 1-end loop value
-    blk = Block()
+
+class ForStatement:
 
     def __init__(self, var, it, blk):
-        """ generated source for method __init__ """
-        super(ForStatement, self).__init__()
-        if var == None:
-            raise IllegalArgumentException("null Id argument")
-        if it == None:
-            raise IllegalArgumentException("null iterator argument")
-        if blk == None:
-            raise IllegalArgumentException("null block argument")
+        if var is None:
+            raise ValueError("Null Id argument")
+        if it is None:
+            raise ValueError("Null iterator argument")
+        if blk is None:
+            raise ValueError("Null block argument")
         self.var = var
         self.it = it
         self.blk = blk
 
     def execute(self):
-        """ generated source for method execute """
         # incrementing loop
-        if self.it.evaluate().get(0) < self.it.evaluate().get(1):
-            Memory.store(self.var.getChar(), self.it.evaluate().get(0))
-            while Memory.fetch(self.var.getChar()) <= self.it.evaluate().get(1):
+        if self.it.evaluate()[0] < self.it.evaluate()[1]:
+            Memory.store(self.var.get_char(), self.it.evaluate()[0])
+            while Memory.fetch(self.var.get_char()) <= self.it.evaluate()[1]:
                 self.blk.execute()
+                i = Memory.fetch(self.var.get_char())
                 i += 1
-                Memory.store(self.var.getChar(), i)
+                Memory.store(self.var.get_char(), i)
+        # decrementing loop
         else:
-            # decrementing loop
-            Memory.store(self.var.getChar(), self.it.evaluate().get(0))
-            while Memory.fetch(self.var.getChar()) >= self.it.evaluate().get(1):
+            Memory.store(self.var.get_char(), self.it.evaluate()[0])
+            while Memory.fetch(self.var.get_char()) >= self.it.evaluate()[1]:
                 self.blk.execute()
+                i = Memory.fetch(self.var.get_char())
                 i -= 1
-                Memory.store(self.var.getChar(), i)
-
+                Memory.store(self.var.get_char(), i)

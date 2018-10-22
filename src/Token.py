@@ -1,47 +1,31 @@
-#!/usr/bin/env python
-""" generated source for module Token """
-class Token(object):
-    """ generated source for class Token """
-    rowNumber = int()
-    columnNumber = int()
-    lexeme = str()
-    tokType = TokenType()
 
-    # 
-    #      * @param rowNumber - must be positive
-    #      * @param columnNumber - must be positive
-    #      * @param lexeme - cannot be null nor empty
-    #      * @param tokType - cannot be null
-    #      * @throws IllegalArgumentException if any precondition is not satisfied
-    #      
-    def __init__(self, rowNumber, columnNumber, lexeme, tokType):
-        """ generated source for method __init__ """
-        if rowNumber <= 0:
-            raise IllegalArgumentException("invalid row number argument")
-        if columnNumber <= 0:
-            raise IllegalArgumentException("invalid column number argument")
-        if lexeme == None or 0 == len(lexeme):
-            raise IllegalArgumentException("invalid lexeme argument")
-        if tokType == None:
-            raise IllegalArgumentException("invalid TokenType argument")
-        self.rowNumber = rowNumber
-        self.columnNumber = columnNumber
+
+class Token:
+
+    def __init__(self, row_number, column_number, lexeme, tok_type):
+
+        if row_number <= 0:
+            raise Exception("IllegalArgumentException, invalid row number argument")
+        if column_number <= 0:
+            raise Exception("IllegalArgumentException, invalid column number argument")
+        if lexeme is None or 0 == len(lexeme):
+            raise Exception("IllegalArgumentException, invalid lexeme argument")
+        if tok_type is None:
+            raise Exception("IllegalArgumentException, invalid TokenType argument")
+        self.row_number = row_number
+        self.column_number = column_number
         self.lexeme = lexeme
-        self.tokType = tokType
+        self.tok_type = tok_type
 
-    def getRowNumber(self):
-        """ generated source for method getRowNumber """
-        return self.rowNumber
+    def get_row_number(self):
+        return self.row_number
 
-    def getColumnNumber(self):
-        """ generated source for method getColumnNumber """
-        return self.columnNumber
+    def get_column_number(self):
+        return self.column_number
 
-    def getLexeme(self):
-        """ generated source for method getLexeme """
+    def get_lexeme(self):
         return self.lexeme
 
-    def getTokType(self):
-        """ generated source for method getTokType """
-        return self.tokType
+    def get_tok_type(self):
+        return self.tok_type
 

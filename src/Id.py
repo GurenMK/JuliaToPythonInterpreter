@@ -1,25 +1,16 @@
-#!/usr/bin/env python
-""" generated source for module Id """
-class Id(ArithmeticExpression):
-    """ generated source for class Id """
-    ch = str()
+from LexicalAnalyzer import LexicalAnalyzer
+from Memory import Memory
 
-    # 
-    #      * @param ch - must be a valid identifier
-    #      * @throws IllegalArgumentException if ch is not a valid identifier
-    #      
+
+class Id:
+
     def __init__(self, ch):
-        """ generated source for method __init__ """
-        super(Id, self).__init__()
-        if not LexicalAnalyzer.isValidIdentifier(ch):
-            raise IllegalArgumentException("character is not a valid identifier")
+        if not LexicalAnalyzer.is_valid_identifier(ch):
+            raise ValueError("Character is not a valid identifier")
         self.ch = ch
 
     def evaluate(self):
-        """ generated source for method evaluate """
         return Memory.fetch(self.ch)
 
-    def getChar(self):
-        """ generated source for method getChar """
+    def get_char(self):
         return self.ch
-
